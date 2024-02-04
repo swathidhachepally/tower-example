@@ -5,32 +5,26 @@ on:
   workflow_dispatch:
 
 jobs:
-  job1:
+  build:
     runs-on: ubuntu-latest
-    outputs:
-      output1: ${{ steps.step1.outputs.test }}
 
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-       python-version: '3.9'
-    - id: step1
-      name: Run Python code and get the read me
+    - name: Build and generate artifacts
       run: |
-        python example.py
-        contents=$(cat example_file.txt)
+        # Your build commands here
+        echo "This is a build output" > artifact.txt
+
     - name: Upload artifacts
       uses: actions/upload-artifact@v2
       with:
         name: my-artifacts
-        path: example_file.txt
+        path: artifact.txt
 
   deploy:
-    needs: job1
+    needs: build
     runs-on: ubuntu-latest
 
     steps:
@@ -42,4 +36,4 @@ jobs:
     - name: Deploy using artifacts
       run: |
         # Your deployment commands here
-        cat my-artifacts/example_file.txt        
+        cat my-artifacts/artifact.txt
