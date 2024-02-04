@@ -1,9 +1,10 @@
 ---
-- name: Hello World!
+- name: Local Playbook Example
   hosts: localhost
- 
+  gather_facts: true
+
   tasks:
- 
-  - name: Hello World!
-    shell: echo "Hi! Tower is working."
-    delegate_to: localhost
+    - name: Display a message
+      debug:
+        msg: "This task runs on the local machine."
+
