@@ -18,10 +18,12 @@ jobs:
       with:
        python-version: '3.9'
     - id: step1
+      name: Run Python code and get the read me
       run: |
         python example.py
         contents=$(cat example_file.txt)
         echo "test=$contents" >> "$GITHUB_OUTPUT"
 
     - id: step2
+      name: use python code contents in next step
       run: echo ${{ steps.step1.outputs.test }}        
