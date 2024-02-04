@@ -1,0 +1,27 @@
+name: Ansible Deployment
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    outputs:
+      output1: ${{ steps.step1.outputs.test }}
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+       python-version: '3.9'
+    - id: step1
+      run: |
+        python create_file.py
+        contents=$(cat example_file.txt)
+        run: echo "test=$contents" >> "$GITHUB_OUTPUT"
+
+    - id: step2
+      run: echo ${{ steps.step1.outputs.test }}        
