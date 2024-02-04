@@ -19,7 +19,7 @@ jobs:
        python-version: '3.9'
     - id: step1
       run: |
-        python create_file.py
+        python example.py
         contents=$(cat example_file.txt)
         run: echo "test=$contents" >> "$GITHUB_OUTPUT"
 
