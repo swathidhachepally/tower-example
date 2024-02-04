@@ -1,0 +1,45 @@
+
+name: using artifacts
+
+on:
+  workflow_dispatch:
+
+jobs:
+  job1:
+    runs-on: ubuntu-latest
+    outputs:
+      output1: ${{ steps.step1.outputs.test }}
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+       python-version: '3.9'
+    - id: step1
+      name: Run Python code and get the read me
+      run: |
+        python example.py
+        contents=$(cat example_file.txt)
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: my-artifacts
+        path: example_file.txt
+
+  deploy:
+    needs: job1
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Download artifacts
+      uses: actions/download-artifact@v2
+      with:
+        name: my-artifacts
+
+    - name: Deploy using artifacts
+      run: |
+        # Your deployment commands here
+        cat my-artifacts/example_file.txt        
