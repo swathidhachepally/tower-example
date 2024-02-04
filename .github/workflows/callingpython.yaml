@@ -21,7 +21,7 @@ jobs:
       run: |
         python example.py
         contents=$(cat example_file.txt)
-        run: echo "test=$contents" >> "$GITHUB_OUTPUT"
+        # run: echo "test=$contents" >> "$GITHUB_OUTPUT"
 
-    - id: step2
-      run: echo ${{ steps.step1.outputs.test }}        
+    # - id: step2
+    #   run: echo ${{ steps.step1.outputs.test }}        
