@@ -1,0 +1,24 @@
+name: Share Output Between Steps
+
+on:
+  workflow_dispatch:
+
+jobs:
+  share_output_job:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set Output as Environment Variable
+        id: set_output_env
+        run: |
+          echo "This is the output" >> $GITHUB_ENV
+          echo "output_env=${{ env.OUTPUT_ENV }}" >> $GITHUB_ENV
+        env:
+          OUTPUT_ENV: "This is the output"
+
+
+      - name: Use Output in Another Step
+        run: |
+          echo "Output from environment variable: $OUTPUT_ENV"
+         # echo "Output from output variable: ${{ needs.share_output_job.outputs.output_var }}"
+       
