@@ -15,7 +15,10 @@ jobs:
           echo "output_env=${{ env.OUTPUT_ENV }}" >> $GITHUB_ENV
         env:
           OUTPUT_ENV: "This is the output"
-
+      # - name: Set Output as Output Variable
+      #   id: set_output_var
+      #   run: |
+      #     echo "::set-output name=output_var::This is the output"
 
       - name: Use Output in Another Step
         run: |
