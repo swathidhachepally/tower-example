@@ -29,6 +29,6 @@ jobs:
       - shell: bash
         run: |
           value=`cat math-homework.txt`
-          expr The result is $value
+          expr $value
 
 
