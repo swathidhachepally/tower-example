@@ -4,30 +4,14 @@ on:
   workflow_dispatch:
 
 jobs:
-  share_output_job:
+  job1:
     runs-on: ubuntu-latest
-
+    # Map a step output to a job output
     outputs:
-      env_output: ${{ steps.set_env_output.outputs.env_output }}
-      output_var: ${{ steps.set_output_var.outputs.output_var }}
-
+      output1: ${{ steps.step1.outputs.test }}
+      output2: ${{ steps.step2.outputs.test }}
     steps:
-      - name: Set Output as Environment Variable
-        id: set_env_output
-        run: |
-          echo "This is the output" >> $GITHUB_ENV
-          echo "env_output=${{ env.OUTPUT_ENV }}" >> $GITHUB_ENV
-        env:
-          OUTPUT_ENV: "This is the output"
-
-      - name: Set Output as Output Variable
-        id: set_output_var
-        run: |
-          echo "::set-output name=output_var::This is the output"
-
-      - name: Use Output in Another Step
-        run: |
-          echo "Output from environment variable: $OUTPUT_ENV"
-          echo "Output from output variable: ${{ needs.share_output_job.outputs.output_var }}"
-        env:
-          OUTPUT_ENV: ${{ needs.share_output_job.outputs.env_output }}
+      - id: step1
+        run: echo "test=hello" >> "$GITHUB_OUTPUT"
+      - id: step2
+        run: echo ${{ steps.step1.outputs.test }}
