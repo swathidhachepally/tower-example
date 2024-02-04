@@ -8,8 +8,8 @@ jobs:
     runs-on: ubuntu-latest
     
     
-    outputs:
-      step_output: ${{ steps.set_output.outputs.output }}
+    # outputs:
+    #   step_output: ${{ steps.set_output.outputs.output }}
 
     steps:
       - name: Set Output
